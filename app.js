@@ -2,16 +2,21 @@
 
 var contenido = null;
 var matriz = new Array();
+var sol_lloyd = null;
 // SACADO DEL ENUNCIADO 
 var centros = new Array();
 var inicializacion = new Array();
 inicializacion[0] = new Array(4.6, 3.0, 4.0, 0.0);
 inicializacion[1] = new Array(6.8, 3.4, 4.6, 0.7);
+var ejemplo;
 
 $(function(){
     leerFichero();
 
     $("#lloyd").on("click", lloyd);
+
+    leerFicheroEjemplo();
+    $("#calcularLloyd").on("click", comprobar_ejemplo_lloyd);
 })
 
 function leerFichero(){
@@ -29,7 +34,24 @@ function leerFichero(){
       });
 }
 
+function leerFicheroEjemplo(){
+  document.getElementById('ejemploLloyd').addEventListener('change', function() {
+    var file = new FileReader();
+    file.onload = () => {
+      ejemplo = file.result;
+      ejemplo = ejemplo.split(",");
+    }
+    file.readAsText(this.files[0]);
+    
+  });
+}
+
 function lloyd(){
-    let sol_lloyd = new Lloyd(matriz, inicializacion);
+    sol_lloyd = new Lloyd(matriz, inicializacion);
     sol_lloyd.calcular();
+}
+
+function comprobar_ejemplo_lloyd(){
+  let num_clase = sol_lloyd.clasificar_ejemplo(ejemplo);
+  $("#output1").text("El ejemplo pertenece a la clase "+ num_clase);
 }

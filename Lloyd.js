@@ -18,13 +18,16 @@ class Lloyd{
             this.algoritmo();
             //comprobamos la variacion de los centros
             fin = this.comprobar_centros();
-        }while(iteraciones < this.K_MAX || !fin);
+            iteraciones = iteraciones + 1;
+        }while(iteraciones <= this.K_MAX && !fin);
     }
 
     algoritmo(){
         //para tantas muestras como filas tenga la matriz
         for(let i = 0; i < this.matriz.length; i++){
-            this.menor_distancia(this.matriz[i]);
+            let ind = this.menor_distancia(this.matriz[i]);
+            //actualizamos el centro en funcion del menor
+            this.actualizar_centro(ind, this.matriz[i]);
         }
     }
 
@@ -40,8 +43,7 @@ class Lloyd{
             }
         } //for externo
 
-        //actualizamos el centro en funcion del menor
-        this.actualizar_centro(ind, muestra);
+        return ind;
     }
 
     distancia_muestra(centro, muestra){
@@ -51,12 +53,13 @@ class Lloyd{
             resta = Math.pow(resta, 2);
             acum = acum + resta;
         }
+        acum = Math.sqrt(acum);
         return acum;
     }
 
     actualizar_centro(ind, muestra){
         for(let i = 0; i < this.centros[ind].length; i++){
-            this.centros[ind][i] = this.centros[ind][i] + this.GAMMA*(parseFloat(muestra[ind]) - this.centros[ind][i]);
+            this.centros[ind][i] = this.centros[ind][i] + this.GAMMA*(parseFloat(muestra[i]) - this.centros[ind][i]);
         }
     }
 
@@ -81,12 +84,16 @@ class Lloyd{
         else return false;
     }
 
+    clasificar_ejemplo(ejemplo){
+        return this.menor_distancia(ejemplo);
+    }
+
     copiar(){
         let ini = new Array();
         for(let i = 0; i < this.centros.length; i++){
             ini[i] = new Array();
             for(let j = 0; j < this.centros[i].length; j++){
-                
+                ini[i].push(this.centros[i][j]);
             }
         }
         return ini;
