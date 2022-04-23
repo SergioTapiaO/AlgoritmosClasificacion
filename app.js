@@ -14,6 +14,7 @@ $(function(){
     leerFichero();
 
     $("#lloyd").on("click", lloyd);
+    $("#kmedias").on("click", kmedias);
 
     leerFicheroEjemplo();
     $("#calcularLloyd").on("click", comprobar_ejemplo_lloyd);
@@ -49,6 +50,11 @@ function leerFicheroEjemplo(){
 function lloyd(){
     sol_lloyd = new Lloyd(matriz, inicializacion);
     sol_lloyd.calcular();
+}
+
+function kmedias(){
+  let sol_kmedias = new Kmedias(matriz, inicializacion);
+  sol_kmedias.iniciar();
 }
 
 function comprobar_ejemplo_lloyd(){
