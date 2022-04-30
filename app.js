@@ -3,6 +3,7 @@
 var contenido = null;
 var matriz = new Array();
 var sol_lloyd = null;
+var sol_kmedias = null;
 // SACADO DEL ENUNCIADO 
 var centros = new Array();
 var inicializacion = new Array();
@@ -18,6 +19,7 @@ $(function(){
 
     leerFicheroEjemplo();
     $("#calcularLloyd").on("click", comprobar_ejemplo_lloyd);
+    $("#calcularKmedias").on("click", comprobar_ejemplo_kmedias);
 })
 
 function leerFichero(){
@@ -53,11 +55,16 @@ function lloyd(){
 }
 
 function kmedias(){
-  let sol_kmedias = new Kmedias(matriz, inicializacion);
+  sol_kmedias = new Kmedias(matriz, inicializacion);
   sol_kmedias.iniciar();
 }
 
 function comprobar_ejemplo_lloyd(){
   let num_clase = sol_lloyd.clasificar_ejemplo(ejemplo);
+  $("#output1").text("El ejemplo pertenece a la clase "+ num_clase);
+}
+
+function comprobar_ejemplo_kmedias(){
+  let num_clase = sol_kmedias.clasificar_ejemplo(ejemplo);
   $("#output1").text("El ejemplo pertenece a la clase "+ num_clase);
 }
