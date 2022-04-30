@@ -60,14 +60,14 @@ class Kmedias{
 
     nuevos_centros(){
         let numerador = new Array();
-        let denominador = 0;
 
         for(let i = 0; i < this.centros.length; i++){
             numerador[i] = new Array(0, 0, 0, 0);
+            let denominador = 0;
             //calcular el numerador y el denominador
             for(let j = 0; j< this.grados_pertenencia[i].length; j++){
                 numerador[i] = (this.calcular(numerador[i], this.muestras[j], this.grados_pertenencia[i][j]));
-                denominador = denominador + this.grados_pertenencia[i][j];
+                denominador = denominador + Math.pow(this.grados_pertenencia[i][j], this.b);
             }
 
             //hacemos la division
@@ -81,7 +81,7 @@ class Kmedias{
 
     calcular(numerador, muestra, grado_p){
         for(let i = 0; i < numerador.length; i++){
-            numerador[i] = numerador[i] + (grado_p * muestra[i]); 
+            numerador[i] = numerador[i] + (Math.pow(grado_p, this.b) * muestra[i]); 
         }
         return numerador;
     }
