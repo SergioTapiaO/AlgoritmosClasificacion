@@ -4,6 +4,7 @@ var contenido = null;
 var matriz = new Array();
 var sol_lloyd = null;
 var sol_kmedias = null;
+var sol_bayes = null;
 // SACADO DEL ENUNCIADO 
 var centros = new Array();
 var inicializacion = new Array();
@@ -16,6 +17,7 @@ $(function(){
 
     $("#lloyd").on("click", lloyd);
     $("#kmedias").on("click", kmedias);
+    $("#Bayes").on("click", bayes);
 
     leerFicheroEjemplo();
     $("#calcularLloyd").on("click", comprobar_ejemplo_lloyd);
@@ -59,6 +61,11 @@ function kmedias(){
   sol_kmedias.iniciar();
 }
 
+function bayes(){
+  sol_bayes = new Bayes(matriz, inicializacion);
+  sol_bayes.iniciar();
+}
+
 function comprobar_ejemplo_lloyd(){
   let num_clase = sol_lloyd.clasificar_ejemplo(ejemplo);
   $("#output1").text("El ejemplo pertenece a la clase "+ num_clase);
@@ -66,5 +73,10 @@ function comprobar_ejemplo_lloyd(){
 
 function comprobar_ejemplo_kmedias(){
   let num_clase = sol_kmedias.clasificar_ejemplo(ejemplo);
+  $("#output1").text("El ejemplo pertenece a la clase "+ num_clase);
+}
+
+function comprobar_ejemplo_bayes(){
+  let num_clase = sol_bayes.clasificar_ejemplo(ejemplo);
   $("#output1").text("El ejemplo pertenece a la clase "+ num_clase);
 }
