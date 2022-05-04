@@ -17,11 +17,13 @@ $(function(){
 
     $("#lloyd").on("click", lloyd);
     $("#kmedias").on("click", kmedias);
-    $("#Bayes").on("click", bayes);
+    $("#bayes").on("click", bayes);
 
     leerFicheroEjemplo();
     $("#calcularLloyd").on("click", comprobar_ejemplo_lloyd);
     $("#calcularKmedias").on("click", comprobar_ejemplo_kmedias);
+    $("#calcularBayes").on("click", comprobar_ejemplo_bayes);
+    
 })
 
 function leerFichero(){
@@ -62,7 +64,7 @@ function kmedias(){
 }
 
 function bayes(){
-  sol_bayes = new Bayes(matriz, inicializacion);
+  sol_bayes = new Bayes(matriz);
   sol_bayes.iniciar();
 }
 
